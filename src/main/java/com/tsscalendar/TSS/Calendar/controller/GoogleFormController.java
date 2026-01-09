@@ -12,6 +12,7 @@ import java.util.Map;
 @RequestMapping("/api/forms")
 public class GoogleFormController {
 
+
     @Autowired
     private GoogleForm formsService;
 
@@ -30,13 +31,13 @@ public class GoogleFormController {
             result.put("responses", response.getResponses());
 
             System.out.println(result);
+
             return result;
 
         } catch (Exception e) {
             Map<String, Object> error = new HashMap<>();
             error.put("success", false);
             error.put("error", e.getMessage());
-            e.printStackTrace();
             return error;
         }
     }

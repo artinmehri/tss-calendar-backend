@@ -26,15 +26,19 @@
 		<tag/>
 		<url/>
 	</scm>
+
 	<properties>
 		<java.version>25</java.version>
 	</properties>
+
 	<dependencies>
+
         <dependency>
             <artifactId>spring-boot-devtools</artifactId>
             <groupId>org.springframework.boot</groupId>
             <optional>true</optional>
         </dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -54,13 +58,6 @@
         </dependency>
 
 
-        <!-- Google Forms API -->
-        <dependency>
-            <groupId>com.google.apis</groupId>
-            <artifactId>google-api-services-forms</artifactId>
-            <version>v1-rev20220307-1.32.1</version>
-        </dependency>
-
         <!-- Resend API for emails -->
         <dependency>
             <groupId>com.resend</groupId>
@@ -68,32 +65,40 @@
             <version>LATEST</version>
         </dependency>
 
-        <!-- Google Drive API (needed for permissions) -->
+
+        <!-- Google Forms API (UPDATED VERSION) -->
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-forms</artifactId>
+            <version>v1-rev20250422-2.0.0</version>
+        </dependency>
+
+        <!-- Google Drive API (UPDATED VERSION) -->
         <dependency>
             <groupId>com.google.apis</groupId>
             <artifactId>google-api-services-drive</artifactId>
-            <version>v3-rev20220214-1.32.1</version>
+            <version>v3-rev20240914-2.0.0</version>
         </dependency>
 
-        <!-- Google API Client - Jackson2 (THIS FIXES YOUR ERROR) -->
+        <!-- Google API Client (UPDATED VERSION) -->
         <dependency>
             <groupId>com.google.api-client</groupId>
-            <artifactId>google-api-client-jackson2</artifactId>
-            <version>1.32.1</version>
+            <artifactId>google-api-client</artifactId>
+            <version>2.7.2</version>
         </dependency>
 
-        <!-- Google Auth Library (THIS FIXES YOUR OTHER ERROR) -->
+        <!-- Google Auth Library (UPDATED VERSION) -->
         <dependency>
             <groupId>com.google.auth</groupId>
             <artifactId>google-auth-library-oauth2-http</artifactId>
-            <version>1.11.0</version>
+            <version>1.37.1</version>
         </dependency>
 
         <!-- Google HTTP Client -->
         <dependency>
             <groupId>com.google.http-client</groupId>
-            <artifactId>google-http-client-jackson2</artifactId>
-            <version>1.42.3</version>
+            <artifactId>google-http-client-gson</artifactId>
+            <version>1.45.1</version>
         </dependency>
 
         <dependency>
@@ -103,14 +108,13 @@
 
 	</dependencies>
 
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
