@@ -25,14 +25,13 @@ public class GoogleFormController {
 
             ListFormResponsesResponse response = formsService.getFormResponses(FORM_ID);
 
-            Map<String, Object> result = new HashMap<>();
-            result.put("success", true);
-            result.put("totalResponses", response.getResponses() != null ? response.getResponses().size() : 0);
-            result.put("responses", response.getResponses());
+            Map<String, Object> answers = new HashMap<>();
+            answers.put("success", true);
+            answers.put("totalResponses", response.getResponses() != null ? response.getResponses().size() : 0);
+            answers.put("responses", response.getResponses());
 
-            System.out.println(result);
-
-            return result;
+            System.out.println(answers);
+            return answers;
 
         } catch (Exception e) {
             Map<String, Object> error = new HashMap<>();

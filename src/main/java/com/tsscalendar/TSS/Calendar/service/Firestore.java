@@ -3,26 +3,17 @@ import com.google.api.services.forms.v1.FormsScopes;
 import com.google.auth.oauth2.GoogleCredentials;
 import java.io.FileInputStream;
 import com.google.api.core.ApiFuture;
-import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
-import java.time.*;
-import java.time.format.TextStyle;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-
-import com.google.cloud.Timestamp;
-import java.time.LocalDate;
-import java.util.Date;import java.time.LocalDateTime;
-import java.time.LocalTime;
-
 @Service
 public class Firestore {
     private FirebaseOptions options;
@@ -44,22 +35,76 @@ public class Firestore {
         initialized = true;
     }
 
-    private String dayOfTheWeek(String date) {
-        // 1. Parse the date string into a LocalDate object
-        LocalDate localDate = LocalDate.parse(date);
+    public boolean checkDocumentExists(String docId) {
+        try {
+        com.google.cloud.firestore.Firestore db = FirestoreClient.getFirestore();
+        DocumentReference docRef = db.collection("events").document(docId);
+        ApiFuture<DocumentSnapshot> future = docRef.get();
+            DocumentSnapshot document = future.get(); // Synchronously wait for the result
 
-        // 2. Get the DayOfWeek enum
-        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
-
-        // The DayOfWeek enum itself prints as a simple string (e.g., "MONDAY")
-        System.out.println("DayOfWeek enum value: " + dayOfWeek);
-
-        // 3. Format the DayOfWeek enum into a full display name (e.g., "Monday")
-        return(dayOfWeek.getDisplayName(TextStyle.FULL, Locale.ENGLISH));
+            if (document.exists()) {
+                System.out.println("Document exists!");
+                return true;
+            } else {
+                System.out.println("Document does not exist!");
+                return false;
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            System.err.println("Failed with exception: " + e.getMessage());
+            return false;
+        }
     }
 
+    public void approveEvent(String eventTitle) throws ExecutionException, InterruptedException {
+        System.out.println("approving event");
+        com.google.cloud.firestore.Firestore db = FirestoreClient.getFirestore();
+        String eventId = "";
+        // Find event by title
+        var query = db.collection("events")
+                .whereEqualTo("title", eventTitle)
+                .get()
+                .get();
 
-    public void addData() throws ExecutionException, InterruptedException {
+        for (DocumentSnapshot doc : query.getDocuments()) {
+            eventId = doc.getId();  // Get the ID
+            // Now you can reference it
+        }
+
+        // Update an existing document
+        DocumentReference docRef = db.collection("events").document(eventId);
+
+        // (async) Update one field
+        ApiFuture<WriteResult> future = docRef.update("status", "approved");
+
+        WriteResult result = future.get();
+        System.out.println("Write result: " + result);
+    }
+
+    public void declineEvent(String eventTitle) throws ExecutionException, InterruptedException {
+        com.google.cloud.firestore.Firestore db = FirestoreClient.getFirestore();
+        String eventId = "";
+        // Find event by title
+        var query = db.collection("events")
+                .whereEqualTo("title", eventTitle)
+                .get()
+                .get();
+
+        for (DocumentSnapshot doc : query.getDocuments()) {
+            eventId = doc.getId();  // Get the ID
+            // Now you can reference it
+        }
+
+        // Update an existing document
+        DocumentReference docRef = db.collection("events").document(eventId);
+
+        // (async) Update one field
+        ApiFuture<WriteResult> future = docRef.update("status", "declined");
+
+        WriteResult result = future.get();
+        System.out.println("Write result: " + result);
+    }
+
+    public void addEvent(String eventTitle, String eventSupervisor, String eventDate, String eventTime, String eventDescription, String eventCategory, Boolean weekly, String submitTime, String respondentEmail) throws ExecutionException, InterruptedException {
         // Ensure Firebase is initialized before using Firestore
         if (!initialized) {
             throw new IllegalStateException("Firestore not initialized. Call constructor first.");
@@ -67,18 +112,21 @@ public class Firestore {
         
         // Get Firestore instance - this requires Firebase to be initialized
         com.google.cloud.firestore.Firestore db = FirestoreClient.getFirestore();
-        DocumentReference docRef = db.collection("events").document("App Club");
+        DocumentReference docRef = db.collection("events").document();
         
-        // Add document data with id "example" using a hashmap
+        // Add document data using the parameters passed to the method
         Map<String, Object> data = new HashMap<>();
-        data.put("eventTitle", "App Club Meeting");
-        data.put("eventCategory", "Student Life");
-        data.put("description", "This is App Club's weekly meeting");
-        data.put("time", "15:45");
-        data.put("date", "2026-01-12");
-        data.put("weekDay", dayOfTheWeek("2026-01-12"));
-        data.put("weekly", true);
-        
+        data.put("title", eventTitle);
+        data.put("supervisor", eventSupervisor);
+        data.put("date", eventDate);
+        data.put("time", eventTime);
+        data.put("description", eventDescription);
+        data.put("category", eventCategory);
+        data.put("weekly", weekly);
+        data.put("status", "pending");
+        data.put("submitTime",submitTime );
+        data.put("respondentEmail", respondentEmail);
+
         // Asynchronously write data
         ApiFuture<WriteResult> result = docRef.set(data);
         // result.get() blocks on response
