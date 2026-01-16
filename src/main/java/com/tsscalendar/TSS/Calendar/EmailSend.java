@@ -6,7 +6,7 @@ import com.resend.services.emails.model.CreateEmailOptions;
 import com.resend.services.emails.model.CreateEmailResponse;
 
 public class EmailSend {
-    public static void main(String[] args) {
+    public static void main() {
         Resend resend = new Resend("re_azL1naPJ_JbxUbJYYWdYjU1VHQRHsQV9S");
 
         CreateEmailOptions params = CreateEmailOptions.builder()
@@ -18,7 +18,7 @@ public class EmailSend {
 
         try {
             CreateEmailResponse data = resend.emails().send(params);
-            System.out.println(data.getId());
+            System.out.println("Email Sent!");
         } catch (ResendException e) {
             e.printStackTrace();
         }

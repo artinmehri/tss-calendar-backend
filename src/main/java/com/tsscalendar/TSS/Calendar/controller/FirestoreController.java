@@ -1,4 +1,5 @@
 package com.tsscalendar.TSS.Calendar.controller;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.tsscalendar.TSS.Calendar.service.Firestore;
 import com.google.api.services.forms.v1.model.FormResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,6 @@ public class FirestoreController {
             @SuppressWarnings("unchecked")
             List<FormResponse> formResponses = (List<FormResponse>) answers.get("responses");
 
-            int addedCount = 0;
-            int errorCount = 0;
-            
             // Loop through all form responses
             for (FormResponse formResponse : formResponses) {
 
@@ -105,26 +103,17 @@ public class FirestoreController {
                         }
                     }
 
-                    firestoreService.approveEvent("App Club Meeting");
-
                     if (!(firestoreService.checkDocumentExists(eventTitle))) {
                         // Add data to Firestore
-                        firestoreService.addEvent(eventTitle, eventSupervisor, eventDate, eventTime, eventDescription, eventCategory, weekly, submitTime, respondentEmail);
-                        addedCount++;
+                       firestoreService.addEvent(eventTitle, eventSupervisor, eventDate, eventTime, eventDescription, eventCategory, weekly, submitTime, respondentEmail);
                     }
 
-                    
+                    System.out.println("Fetched all the events from Google Form and Added to Firestore");
                 } catch (Exception e) {
-                    errorCount++;
                     System.err.println("Error processing response: " + e.getMessage());
                 }
             }
-            
-            response.put("success", true);
-            response.put("message", "Processed " + formResponses.size() + " form responses. Added " + addedCount + " events to Firestore. " + errorCount + " errors encountered.");
-            response.put("totalResponses", formResponses.size());
-            response.put("addedCount", addedCount);
-            response.put("errorCount", errorCount);
+            // Returning OK!
             return ResponseEntity.ok(response);
             
         } catch (Exception e) {

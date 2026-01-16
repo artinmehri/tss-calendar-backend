@@ -37,7 +37,6 @@ public class GoogleForm {
 
     public ListFormResponsesResponse getFormResponses(String formId) throws IOException {
         ListFormResponsesResponse result = formsService.forms().responses().list(formId).setAccessToken(getAccessToken()).execute();
-        System.out.println(result);
         return result;
     }
 }

@@ -3,15 +3,15 @@ import com.google.api.services.forms.v1.FormsScopes;
 import com.google.auth.oauth2.GoogleCredentials;
 import java.io.FileInputStream;
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 @Service
@@ -35,28 +35,43 @@ public class Firestore {
         initialized = true;
     }
 
-    public boolean checkDocumentExists(String docId) {
-        try {
-        com.google.cloud.firestore.Firestore db = FirestoreClient.getFirestore();
-        DocumentReference docRef = db.collection("events").document(docId);
-        ApiFuture<DocumentSnapshot> future = docRef.get();
-            DocumentSnapshot document = future.get(); // Synchronously wait for the result
-
-            if (document.exists()) {
-                System.out.println("Document exists!");
-                return true;
-            } else {
-                System.out.println("Document does not exist!");
-                return false;
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            System.err.println("Failed with exception: " + e.getMessage());
-            return false;
-        }
+    public boolean checkDocumentExists(String eventTitle) throws ExecutionException, InterruptedException {
+            com.google.cloud.firestore.Firestore db = FirestoreClient.getFirestore();
+            // asynchronously retrieve multiple documents
+            ApiFuture<QuerySnapshot> future = db.collection("events").whereEqualTo("title", eventTitle).get();
+            // future.get() blocks on response
+            List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+            // return a boolean on whether the document exists or no
+            return !documents.isEmpty();
     }
 
+    public List<String> getAllEventsStatusBased(String status) throws ExecutionException, InterruptedException {
+        com.google.cloud.firestore.Firestore db = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> future = db.collection("events").whereEqualTo("status", status).get();
+        // Returning all the documents with that status
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+
+        List<String> formattedEvents = new ArrayList<>();
+
+        for (QueryDocumentSnapshot document : documents) {
+            String eventInfo = String.format(
+                    "Event ID: %s\nTitle: %s\nDescription: %s\nDate: %s\nTime: %s\nRespondent Email: %s\nCategory: %s\nSupervisor: %s\nIs It Weekly?:%s",
+                    document.getId(),
+                    document.getString("title"),
+                    document.getString("description"),
+                    document.getString("date"),
+                    document.getString("time"),
+                    document.getString("respondentEmail"),
+                    document.getString("category"),
+                    document.getString("supervisor"),
+                    document.getBoolean("weekly")
+                    );
+            formattedEvents.add(eventInfo);
+        }
+        return formattedEvents;
+    }
+    
     public void approveEvent(String eventTitle) throws ExecutionException, InterruptedException {
-        System.out.println("approving event");
         com.google.cloud.firestore.Firestore db = FirestoreClient.getFirestore();
         String eventId = "";
         // Find event by title
@@ -77,8 +92,8 @@ public class Firestore {
         ApiFuture<WriteResult> future = docRef.update("status", "approved");
 
         WriteResult result = future.get();
-        System.out.println("Write result: " + result);
     }
+
 
     public void declineEvent(String eventTitle) throws ExecutionException, InterruptedException {
         com.google.cloud.firestore.Firestore db = FirestoreClient.getFirestore();
@@ -103,6 +118,7 @@ public class Firestore {
         WriteResult result = future.get();
         System.out.println("Write result: " + result);
     }
+
 
     public void addEvent(String eventTitle, String eventSupervisor, String eventDate, String eventTime, String eventDescription, String eventCategory, Boolean weekly, String submitTime, String respondentEmail) throws ExecutionException, InterruptedException {
         // Ensure Firebase is initialized before using Firestore
@@ -129,7 +145,5 @@ public class Firestore {
 
         // Asynchronously write data
         ApiFuture<WriteResult> result = docRef.set(data);
-        // result.get() blocks on response
-        System.out.println("Update time : " + result.get().getUpdateTime());
     }
 }

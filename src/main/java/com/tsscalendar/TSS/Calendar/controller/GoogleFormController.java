@@ -30,7 +30,6 @@ public class GoogleFormController {
             answers.put("totalResponses", response.getResponses() != null ? response.getResponses().size() : 0);
             answers.put("responses", response.getResponses());
 
-            System.out.println(answers);
             return answers;
 
         } catch (Exception e) {
