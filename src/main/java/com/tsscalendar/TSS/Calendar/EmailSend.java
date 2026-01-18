@@ -6,14 +6,17 @@ import com.resend.services.emails.model.CreateEmailOptions;
 import com.resend.services.emails.model.CreateEmailResponse;
 
 public class EmailSend {
-    public static void main() {
+    public static void send(String receiver, String subject, String html) {
+        System.out.println(receiver);
+        System.out.println(subject);
+        System.out.println(html);
         Resend resend = new Resend("re_azL1naPJ_JbxUbJYYWdYjU1VHQRHsQV9S");
 
         CreateEmailOptions params = CreateEmailOptions.builder()
                 .from("TSS-Calendar <calendar@sportiner.com>")
-                .to("artinmehri7777@gmail.com")
-                .subject("Your Event Reminder!")
-                .html("<strong>Hello There!</strong>")
+                .to(receiver)
+                .subject(subject)
+                .html(html)
                 .build();
 
         try {

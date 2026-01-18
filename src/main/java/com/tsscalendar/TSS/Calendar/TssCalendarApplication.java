@@ -1,5 +1,6 @@
 package com.tsscalendar.TSS.Calendar;
 import com.tsscalendar.TSS.Calendar.controller.FirestoreController;
+import com.tsscalendar.TSS.Calendar.service.AiClient;
 import com.tsscalendar.TSS.Calendar.service.Firestore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,9 +22,9 @@ public class TssCalendarApplication {
     @Autowired
     private Firestore firestoreService;
     @Autowired
+    private AiClient aiClient;
+    @Autowired
     private FirestoreController firestoreController;
-
-    public EmailSend emailSend;
 
     @Bean
     public CommandLineRunner run(Firestore firestoreService) {
@@ -40,6 +41,7 @@ public class TssCalendarApplication {
                         "[4] Decline Event by Event Title\n" +
                         "[5] View All Approved Events (Firestore)\n" +
                         "[6] Send Email\n" +
+                        "[7] Activate AI\n" +
                         "[0] Exit\n" +
                         "\n" +
                         "Enter your choice: ");
@@ -81,7 +83,9 @@ public class TssCalendarApplication {
                     }
                     System.out.println("Total approved events: " + approvedEvents.size());
                 } else if (choice == 6) {
-                    EmailSend.main();
+                    System.out.println("option not available right now");
+                } else if (choice == 7) {
+                    aiClient.getAiResponse();
                 } else if (choice == 0) {
                     int exitCode = SpringApplication.exit(context, () -> 0);
                     System.exit(exitCode); // Terminates the JVM

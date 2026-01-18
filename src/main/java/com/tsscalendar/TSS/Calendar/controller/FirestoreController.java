@@ -107,8 +107,6 @@ public class FirestoreController {
                         // Add data to Firestore
                        firestoreService.addEvent(eventTitle, eventSupervisor, eventDate, eventTime, eventDescription, eventCategory, weekly, submitTime, respondentEmail);
                     }
-
-                    System.out.println("Fetched all the events from Google Form and Added to Firestore");
                 } catch (Exception e) {
                     System.err.println("Error processing response: " + e.getMessage());
                 }

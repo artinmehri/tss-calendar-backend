@@ -84,6 +84,11 @@ public class Firestore {
             eventId = doc.getId();  // Get the ID
             // Now you can reference it
         }
+        
+        if (eventId.isEmpty()) {
+            System.out.println("No event found with title: " + eventTitle);
+            return;
+        }
 
         // Update an existing document
         DocumentReference docRef = db.collection("events").document(eventId);
@@ -107,6 +112,11 @@ public class Firestore {
         for (DocumentSnapshot doc : query.getDocuments()) {
             eventId = doc.getId();  // Get the ID
             // Now you can reference it
+        }
+        
+        if (eventId.isEmpty()) {
+            System.out.println("No event found with title: " + eventTitle);
+            return;
         }
 
         // Update an existing document
