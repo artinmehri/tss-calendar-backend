@@ -30,7 +30,9 @@ import java.util.concurrent.ExecutionException;
 public class Firestore {
     private FirebaseOptions options;
     private boolean initialized = false;
-    private static final String PROJECT_ID = "tss-calendar-a03ad";
+
+    @Value("${firebase.project.id:tss-calendar-a03ad}")
+    private String projectId;
 
     /**
      * Constructor for Firestore service.
@@ -48,7 +50,7 @@ public class Firestore {
             
             options = FirebaseOptions.builder()
                     .setCredentials(credential)
-                    .setProjectId(PROJECT_ID)
+                    .setProjectId(projectId)
                     .build();
             FirebaseApp.initializeApp(options);
         }
