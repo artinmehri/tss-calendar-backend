@@ -32,11 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-### Credentials and sensitive files ###
-/src/main/resources/credential.json
-/src/main/resources/firebase-credential.json
-*.json
-!.env.example
 
 ### Environment files ###
 .env

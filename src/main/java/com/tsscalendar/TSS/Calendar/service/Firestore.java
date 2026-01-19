@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+
 /**
  * Service class for managing Firebase Firestore operations.
  * Handles event storage, retrieval, approval, and decline operations.
@@ -29,64 +30,29 @@ import java.util.concurrent.ExecutionException;
 public class Firestore {
     private FirebaseOptions options;
     private boolean initialized = false;
-    
-    @Value("${firebase.credentials.json:}")
-    private String firebaseCredentialsJson;
-    
-    @Value("${firebase.project.id:tss-calendar-a03ad}")
-    private String projectId;
+    private static final String PROJECT_ID = "tss-calendar-a03ad";
 
     /**
      * Constructor for Firestore service.
-     * Initializes Firebase connection using available credentials.
+     * Initializes Firebase connection using credential files.
      * 
-     * @pre Firebase credentials are available via environment variable, Spring property, or file
+     * @pre Firebase credential files are available in project
      * @post Firebase is initialized and ready for Firestore operations
      * @throws IOException If credentials cannot be loaded or Firebase initialization fails
      */
     public Firestore() throws IOException {
         // Check if Firebase is already initialized to avoid IllegalStateException
         if (FirebaseApp.getApps().isEmpty()) {
-            GoogleCredentials credential = getGoogleCredentials();
-
+            GoogleCredentials credential = GoogleCredentials.fromStream(new java.io.FileInputStream("src/main/resources/static/firebase-credential.json"))
+                    .createScoped(FormsScopes.all());
+            
             options = FirebaseOptions.builder()
                     .setCredentials(credential)
-                    .setProjectId(projectId)
+                    .setProjectId(PROJECT_ID)
                     .build();
             FirebaseApp.initializeApp(options);
         }
         initialized = true;
-    }
-    
-    /**
-     * Retrieves Google credentials from environment variables, Spring properties, or file.
-     * 
-     * @pre At least one credential source is available and valid
-     * @post Valid GoogleCredentials object is returned
-     * @return GoogleCredentials object with appropriate scopes
-     * @throws IOException If no valid credentials are found
-     */
-    private GoogleCredentials getGoogleCredentials() throws IOException {
-        // Try environment variable first (for production)
-        String credentialsEnv = System.getenv("FIREBASE_CREDENTIALS_JSON");
-        if (credentialsEnv != null && !credentialsEnv.trim().isEmpty()) {
-            return GoogleCredentials.fromStream(new ByteArrayInputStream(credentialsEnv.getBytes()))
-                    .createScoped(FormsScopes.all());
-        }
-        
-        // Try Spring property (for application.properties)
-        if (firebaseCredentialsJson != null && !firebaseCredentialsJson.trim().isEmpty()) {
-            return GoogleCredentials.fromStream(new ByteArrayInputStream(firebaseCredentialsJson.getBytes()))
-                    .createScoped(FormsScopes.all());
-        }
-        
-        // Fallback to file (for local development)
-        try {
-            java.io.FileInputStream fileStream = new java.io.FileInputStream("src/main/resources/firebase-credential.json");
-            return GoogleCredentials.fromStream(fileStream).createScoped(FormsScopes.all());
-        } catch (IOException e) {
-            throw new IOException("Firebase credentials not found. Please set FIREBASE_CREDENTIALS_JSON environment variable or provide firebase-credential.json file");
-        }
     }
 
     /**

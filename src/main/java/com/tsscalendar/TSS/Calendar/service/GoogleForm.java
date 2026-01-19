@@ -13,7 +13,7 @@ import java.security.GeneralSecurityException;
 @Service
 public class GoogleForm {
     private static final String APPLICATION_NAME = "TSS Calendar Backend";
-    private static final String CREDENTIALS_FILE = "src/main/resources/credential.json";
+    private static final String CREDENTIALS_FILE = "src/main/resources/static/credentials.json";
     private Forms formsService;
 
     // Creating connection to Google API
