@@ -2,7 +2,6 @@
 
 Spring Boot application that fetches Google Form submissions, stores events in Firestore, and provides admin controls via console menu and REST endpoints.
 
-> **IMPORTANT**: Service account credential JSON files must NOT be committed to the repository. If you previously committed credentials, rotate/delete the keys immediately.
 
 ## Overview
 
