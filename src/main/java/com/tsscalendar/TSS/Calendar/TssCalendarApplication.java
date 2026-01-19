@@ -107,7 +107,7 @@ public class TssCalendarApplication {
                     }
                     System.out.println("Total approved events: " + approvedEvents.size());
                 } else if (choice == 6) {
-                    System.out.println("option not available right now");
+                    EmailSend.send("artinmehri7777@gmail.com", "Test Email", "<h1>Test Email</h1>");
                 } else if (choice == 7) {
                     aiClient.getAiResponse();
                 } else if (choice == 0) {
