@@ -12,8 +12,24 @@ import org.springframework.context.annotation.Bean;
 import java.util.Scanner;
 import java.util.List;
 
+/**
+ * Main Spring Boot application class for TSS Calendar Backend.
+ * 
+ * @pre Firebase credentials are properly configured via environment variables or credential files
+ * @post Application starts with interactive console menu and web server on port 8080
+ * @author Artin Mehri
+ * @version 1.0
+ */
 @SpringBootApplication
 public class TssCalendarApplication {
+    
+    /**
+     * Main entry point for the Spring Boot application.
+     * 
+     * @pre Java 17+ is installed and all dependencies are available
+     * @post Spring Boot application starts and initializes the console interface
+     * @param args Command line arguments (not used)
+     */
     public static void main(String[] args) {
         SpringApplication.run(TssCalendarApplication.class, args);
     }
@@ -26,6 +42,14 @@ public class TssCalendarApplication {
     @Autowired
     private FirestoreController firestoreController;
 
+    /**
+     * Creates and returns a CommandLineRunner that provides the interactive console menu.
+     * 
+     * @pre All required services (Firestore, AI, Controllers) are properly initialized
+     * @post Interactive console menu is displayed and user can manage events
+     * @param firestoreService The Firestore service for event management
+     * @return CommandLineRunner that handles the console interface
+     */
     @Bean
     public CommandLineRunner run(Firestore firestoreService) {
         return args -> {

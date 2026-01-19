@@ -32,6 +32,24 @@ build/
 ### VS Code ###
 .vscode/
 
-### created files ###
+### Credentials and sensitive files ###
 /src/main/resources/credential.json
 /src/main/resources/firebase-credential.json
+*.json
+!.env.example
+
+### Environment files ###
+.env
+.env.local
+.env.production
+
+### Logs ###
+logs/
+*.log
+
+### IDE and OS files ###
+.DS_Store
+Thumbs.db
+
+# Allow templates (non-sensitive)
+!src/main/resources/application.properties.template

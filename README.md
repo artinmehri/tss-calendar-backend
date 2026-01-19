@@ -16,7 +16,7 @@ This backend:
 ## Requirements
 
 - Java 17 or later
-- Maven 3.6+
+- Maven 3.6+ (or use included Maven wrapper)
 - Internet access for Google APIs & Firestore
 - Firebase service account JSON for Firestore access
 - Google credentials JSON for Google Forms API
@@ -25,26 +25,45 @@ This backend:
 
 ### 1. Build the application
 ```bash
+# Using Maven wrapper (recommended)
+./mvnw clean package
+
+# Or using system Maven
 mvn clean package
 ```
 
 ### 2. Configure credentials
 
-**Option A - File paths (recommended):**
+**For Production (Recommended):**
+Set environment variables:
+
 ```bash
-export FIREBASE_CREDENTIAL_FILE=/path/to/firebase-credential.json
-export GOOGLE_CREDENTIAL_FILE=/path/to/credential.json
+# Firebase credentials (required)
+export FIREBASE_CREDENTIALS_JSON="$(cat /path/to/firebase-credential.json)"
+export FIREBASE_PROJECT_ID="tss-calendar-a03ad"
+
+# Optional: Server port
+export SERVER_PORT=8080
 ```
 
-**Option B - Environment variables:**
+**For Local Development:**
+Place credential files in `src/main/resources/`:
+- `firebase-credential.json` (Firebase service account key)
+- `credential.json` (Google Forms API service account key)
+
+> **IMPORTANT**: These files are gitignored and will not be committed to version control.
+
+**Docker/Container Environment:**
 ```bash
-export FIREBASE_CREDENTIAL_JSON="$(cat /path/to/firebase-credential.json)"
-export GOOGLE_CREDENTIAL_JSON="$(cat /path/to/credential.json)"
+docker run -e FIREBASE_CREDENTIALS_JSON="$(cat firebase-credential.json)" \
+           -e FIREBASE_PROJECT_ID="tss-calendar-a03ad" \
+           -p 8080:8080 \
+           tss-calendar-backend
 ```
 
 ### 3. Run the application
 ```bash
-java -jar target/tss-calendar-backend-0.0.1-SNAPSHOT.jar
+java -jar target/TSS-Calendar-0.0.1-SNAPSHOT.jar
 ```
 
 ## Console Usage
@@ -93,22 +112,36 @@ The application logs events to `logs/tss-calendar.log`. Configure in `applicatio
 ```properties
 logging.file.name=logs/tss-calendar.log
 logging.level.root=INFO
+logging.level.com.tsscalendar=DEBUG
 ```
+
+**Log Location**: `logs/tss-calendar.log` (automatically created in project root)
 
 ## Testing
 
 Run unit tests:
 ```bash
-mvn test
+./mvnw test
 ```
 
 ## JavaDoc
 
 Generate API documentation:
 ```bash
-mvn javadoc:javadoc
+./mvnw javadoc:javadoc
 ```
-Output: `target/site/apidocs/`
+**JavaDoc Location**: `target/site/apidocs/`
+
+## Runnable JAR
+
+**JAR Location**: `target/TSS-Calendar-0.0.1-SNAPSHOT.jar`
+
+To run the application:
+```bash
+java -jar target/TSS-Calendar-0.0.1-SNAPSHOT.jar
+```
+
+The JAR includes all dependencies and can be run on any system with Java 17+ installed.
 
 ## Project Structure
 
@@ -118,24 +151,30 @@ src/
 │   ├── java/com/tsscalendar/TSS/Calendar/
 │   │   ├── TssCalendarApplication.java
 │   │   ├── controller/
+│   │   │   ├── FirestoreController.java
+│   │   │   └── GoogleFormController.java
 │   │   ├── service/
-│   │   └── ...
+│   │   │   ├── Firestore.java
+│   │   │   ├── GoogleForm.java
+│   │   │   └── AiClient.java
+│   │   └── EmailSend.java
 │   └── resources/
 │       ├── application.properties
 │       ├── credential.json (gitignored)
 │       ├── firebase-credential.json (gitignored)
 │       └── static/
 └── test/
+    └── java/
 ```
 
 ## Dependencies
 
 - Spring Boot 4.0.0
 - Firebase Admin SDK 9.7.0
-- Google Forms API
-- Google Drive API
-- Google Generative AI
-- Resend Java
+- Google Forms API v1-rev20250422-2.0.0
+- Google Drive API v3-rev20240914-2.0.0
+- Google Generative AI 1.0.0
+- Resend Java (LATEST)
 - Java 25
 
 ## Security Notes
@@ -144,6 +183,18 @@ src/
 - Use environment variables for sensitive configuration in production
 - Regularly update dependencies for security patches
 - If credentials were ever committed publicly, rotate them immediately
+
+## Audit Fields
+
+The system tracks approval/decline actions with the following fields:
+- `approvedBy` - User who approved the event
+- `approvedAt` - Timestamp when approved
+- `declinedBy` - User who declined the event  
+- `declinedAt` - Timestamp when declined
+
+## Title Normalization
+
+Events are stored with both original `title` and normalized `title_lower` fields to enable case-insensitive searching and partial matching in the console approve/decline functions.
 
 ## Sources
 
