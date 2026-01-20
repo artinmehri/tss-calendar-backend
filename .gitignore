@@ -31,20 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-
-### Environment files ###
-.env
-.env.local
-.env.production
-
-### Logs ###
-logs/
-*.log
-
-### IDE and OS files ###
-.DS_Store
-Thumbs.db
-
-# Allow templates (non-sensitive)
-!src/main/resources/application.properties.template
