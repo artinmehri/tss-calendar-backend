@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+/src/main/resources/credential.json
+/src/main/resources/firebase-credential.json
+/src/main/resources/tss-calendar-483202-30610a4d1760.json
