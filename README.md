@@ -83,6 +83,7 @@ The application provides an interactive console menu with comprehensive validati
 [5] View All Approved Events (Firestore)
 [6] Send Email
 [7] Run System Validation Tests
+[8] Approve all pending events
 [0] Exit
 ```
 
