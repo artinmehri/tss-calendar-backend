@@ -47,6 +47,7 @@ public class TssCalendarApplication {
                         "[5] View All Approved Events (Firestore)\n" +
                         "[6] Send Email\n" +
                         "[7] Run System Validation Tests\n" +
+                        "[8] Approve all pending events\n" +
                         "[0] Exit\n" +
                         "\n" +
                         "Enter your choice: ");
@@ -163,6 +164,8 @@ public class TssCalendarApplication {
                 } else if (choice == 7) {
                     // COMPREHENSIVE TEST DATA VALIDATION
                     runComprehensiveTests(firestoreService);
+                } else if (choice == 8) {
+                    firestoreService.approveAllEvents();
                 } else if (choice == 0) {
                     System.out.println("VALID DATA TEST: System shutdown initiated.");
                     int exitCode = SpringApplication.exit(context, () -> 0);

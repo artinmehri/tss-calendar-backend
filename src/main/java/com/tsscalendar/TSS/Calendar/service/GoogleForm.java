@@ -34,7 +34,7 @@ public class GoogleForm {
 
     // Constants for Google API configuration
     private static final String APPLICATION_NAME = "TSS Calendar Backend";
-    private static final String CREDENTIALS_FILE = "src/main/resources/tss-calendar-483202-30610a4d1760.json";
+    private static final String CREDENTIALS_FILE = "src/main/resources/tss-calendar.json";
 
 
     private Forms formsService;

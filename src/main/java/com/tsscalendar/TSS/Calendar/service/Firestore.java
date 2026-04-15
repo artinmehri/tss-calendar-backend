@@ -81,6 +81,17 @@ public class Firestore {
             throw e;
         }
     }
+
+    public void approveAllEvents() throws ExecutionException, InterruptedException {
+        com.google.cloud.firestore.Firestore db = FirestoreClient.getFirestore();
+        // Asynchronously retrieve all documents
+        ApiFuture<QuerySnapshot> future = db.collection("events").get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+
+        for (QueryDocumentSnapshot document : documents) {
+            document.getReference().update("status", "approved");
+        }
+    }
     
     public void approveEvent(String eventTitle) throws ExecutionException, InterruptedException {
         com.google.cloud.firestore.Firestore db = FirestoreClient.getFirestore();
@@ -132,7 +143,7 @@ public class Firestore {
     }
 
 
-    public void addEvent(String eventTitle, String eventSupervisor, String eventDate, String eventTime, String eventDescription, String eventCategory, Boolean weekly, String submitTime, String respondentEmail) throws ExecutionException, InterruptedException {
+    public void addEvent(String eventTitle, String eventSupervisor, String eventDate, String eventStartTime, String eventEndTime, String eventDescription, String eventCategory, Boolean weekly, String submitTime, String respondentEmail, String eventLocation, String actionRequired, int month, int year) throws ExecutionException, InterruptedException {
         // Ensure Firebase is initialized before using Firestore
         if (!initialized) {
             throw new IllegalStateException("Firestore not initialized. Call constructor first.");
@@ -145,13 +156,19 @@ public class Firestore {
         // Add document data using the parameters passed to the method
         Map<String, Object> data = new HashMap<>();
         data.put("title", eventTitle);
-        data.put("supervisor", eventSupervisor);
-        data.put("date", eventDate);
-        data.put("time", eventTime);
-        data.put("description", eventDescription);
+        data.put("image", "");
         data.put("category", eventCategory);
+        data.put("supervisor", eventSupervisor);
+        data.put("location", eventLocation);
+        data.put("date", eventDate);
+        data.put("startTime", eventStartTime);
+        data.put("endTime", eventEndTime);
+        data.put("description", eventDescription);
         data.put("weekly", weekly);
         data.put("status", "pending");
+        data.put("actionRequired", actionRequired);
+        data.put("month", month);
+        data.put("year", year);
         data.put("submitTime",submitTime );
         data.put("respondentEmail", respondentEmail);
 

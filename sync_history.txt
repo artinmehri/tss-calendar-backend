@@ -12,3 +12,82 @@
 [2026-01-20T13:07:21.000976] ADDED: Event 'vacation' successfully pushed to Firestore.
 [2026-01-20T13:07:21.194381] ADDED: Event 'App Club Meeting' successfully pushed to Firestore.
 [2026-01-20T13:07:21.194979] SYSTEM: Sync completed. Total added: 3
+[2026-04-14T21:12:44.977409] SYSTEM: Sync process started.
+[2026-04-14T21:12:44.985892] SYSTEM: Sync completed. Total added: 0
+[2026-04-14T21:13:07.169094] SYSTEM: Sync process started.
+[2026-04-14T21:13:07.175366] SYSTEM: Sync completed. Total added: 0
+[2026-04-14T21:15:24.383796] SYSTEM: Sync process started.
+[2026-04-14T21:15:24.404201] SYSTEM: Sync completed. Total added: 0
+[2026-04-14T21:18:44.802796] SYSTEM: Sync process started.
+[2026-04-14T21:18:45.839390] ADDED: Event 'Summer School Registration Due Day' successfully pushed to Firestore.
+[2026-04-14T21:18:46.082958] ADDED: Event 'Victoria Day (No School)' successfully pushed to Firestore.
+[2026-04-14T21:18:46.558254] ADDED: Event 'MOBYSS' successfully pushed to Firestore.
+[2026-04-14T21:18:47.166997] ADDED: Event '2nd Semester Mid Term Distribution Day 2 ' successfully pushed to Firestore.
+[2026-04-14T21:18:47.755836] ADDED: Event 'Diamond Day (Ridvan)' successfully pushed to Firestore.
+[2026-04-14T21:18:47.993319] ADDED: Event 'Open Mic Night' successfully pushed to Firestore.
+[2026-04-14T21:18:48.243441] ADDED: Event 'Prom' successfully pushed to Firestore.
+[2026-04-14T21:18:48.575822] ADDED: Event 'PA Day' successfully pushed to Firestore.
+[2026-04-14T21:18:48.803846] ADDED: Event '2nd Semester Mid Term Distribution Day 1' successfully pushed to Firestore.
+[2026-04-14T21:18:49.155459] ADDED: Event 'SHSM Event' successfully pushed to Firestore.
+[2026-04-14T21:18:49.501016] ADDED: Event 'Diamond Day (Vaisakhi)' successfully pushed to Firestore.
+[2026-04-14T21:18:49.741825] ADDED: Event 'Game Night' successfully pushed to Firestore.
+[2026-04-14T21:18:50.038047] ADDED: Event 'Badminton Practice' successfully pushed to Firestore.
+[2026-04-14T21:18:50.272156] ADDED: Event 'Diamond Day (Eid-ul-Adha)' successfully pushed to Firestore.
+[2026-04-14T21:18:50.671823] ADDED: Event 'Seneca @ York Field trip  (Reach Ahead opportunity)' successfully pushed to Firestore.
+[2026-04-14T21:18:50.914315] SYSTEM: Sync completed. Total added: 15
+[2026-04-14T21:56:12.398675] SYSTEM: Sync process started.
+[2026-04-14T21:56:13.474446] ADDED: Event 'Easter Monday (No School)' successfully pushed to Firestore.
+[2026-04-14T21:56:13.723147] ADDED: Event 'Summer School Registration Due Day' successfully pushed to Firestore.
+[2026-04-14T21:56:13.974619] ADDED: Event 'Victoria Day (No School)' successfully pushed to Firestore.
+[2026-04-14T21:56:14.233260] ADDED: Event 'OSSLT' successfully pushed to Firestore.
+[2026-04-14T21:56:14.479078] ADDED: Event 'Spirit Week: Floral' successfully pushed to Firestore.
+[2026-04-14T21:56:14.735167] ADDED: Event 'MOBYSS' successfully pushed to Firestore.
+[2026-04-14T21:56:14.988374] ADDED: Event 'Fryer, Galois, Hypatia Math Contest' successfully pushed to Firestore.
+[2026-04-14T21:56:15.316805] ADDED: Event 'Formal Friday' successfully pushed to Firestore.
+[2026-04-14T21:56:15.568622] ADDED: Event 'Parent Teacher Night Interview ' successfully pushed to Firestore.
+[2026-04-14T21:56:15.813819] ADDED: Event '2nd Semester Mid Term Distribution Day 2 ' successfully pushed to Firestore.
+[2026-04-14T21:56:16.053862] ADDED: Event 'Good Friday (No School)' successfully pushed to Firestore.
+[2026-04-14T21:56:16.308155] ADDED: Event 'Spirit Week: Dress as Dream Job' successfully pushed to Firestore.
+[2026-04-14T21:56:16.547994] ADDED: Event 'Diamond Day (Ridvan)' successfully pushed to Firestore.
+[2026-04-14T21:56:16.787564] ADDED: Event 'Open Mic Night' successfully pushed to Firestore.
+[2026-04-14T21:56:17.028564] ADDED: Event 'Prom' successfully pushed to Firestore.
+[2026-04-14T21:56:17.255115] ADDED: Event 'App Club Meeting' successfully pushed to Firestore.
+[2026-04-14T21:56:17.500176] ADDED: Event 'PA Day' successfully pushed to Firestore.
+[2026-04-14T21:56:17.754738] ADDED: Event '2nd Semester Mid Term Distribution Day 1' successfully pushed to Firestore.
+[2026-04-14T21:56:18.004408] ADDED: Event 'Spirit week:Y2K' successfully pushed to Firestore.
+[2026-04-14T21:56:18.234227] ADDED: Event 'SHSM Event' successfully pushed to Firestore.
+[2026-04-14T21:56:18.489808] ADDED: Event 'Diamond Day (Vaisakhi)' successfully pushed to Firestore.
+[2026-04-14T21:56:18.710494] ADDED: Event 'Game Night' successfully pushed to Firestore.
+[2026-04-14T21:56:19.057821] ADDED: Event 'Badminton Practice' successfully pushed to Firestore.
+[2026-04-14T21:56:19.282495] ADDED: Event 'Diamond Day (Eid-ul-Adha)' successfully pushed to Firestore.
+[2026-04-14T21:56:19.607689] ADDED: Event 'Seneca @ York Field trip  (Reach Ahead opportunity)' successfully pushed to Firestore.
+[2026-04-14T21:56:19.932287] ADDED: Event 'Spirit Week: St. Patricks Day' successfully pushed to Firestore.
+[2026-04-14T21:56:19.934379] SYSTEM: Sync completed. Total added: 26
+[2026-04-14T21:57:16.062643] SYSTEM: Sync process started.
+[2026-04-14T21:57:16.784604] ADDED: Event 'Easter Monday (No School)' successfully pushed to Firestore.
+[2026-04-14T21:57:16.890625] ADDED: Event 'Summer School Registration Due Day' successfully pushed to Firestore.
+[2026-04-14T21:57:17.023770] ADDED: Event 'Victoria Day (No School)' successfully pushed to Firestore.
+[2026-04-14T21:57:17.212072] ADDED: Event 'OSSLT' successfully pushed to Firestore.
+[2026-04-14T21:57:17.343609] ADDED: Event 'Spirit Week: Floral' successfully pushed to Firestore.
+[2026-04-14T21:57:17.467775] ADDED: Event 'MOBYSS' successfully pushed to Firestore.
+[2026-04-14T21:57:17.585183] ADDED: Event 'Fryer, Galois, Hypatia Math Contest' successfully pushed to Firestore.
+[2026-04-14T21:57:17.686457] ADDED: Event 'Formal Friday' successfully pushed to Firestore.
+[2026-04-14T21:57:17.820261] ADDED: Event 'Parent Teacher Night Interview ' successfully pushed to Firestore.
+[2026-04-14T21:57:17.937743] ADDED: Event '2nd Semester Mid Term Distribution Day 2 ' successfully pushed to Firestore.
+[2026-04-14T21:57:18.054497] ADDED: Event 'Good Friday (No School)' successfully pushed to Firestore.
+[2026-04-14T21:57:18.180861] ADDED: Event 'Spirit Week: Dress as Dream Job' successfully pushed to Firestore.
+[2026-04-14T21:57:18.291217] ADDED: Event 'Diamond Day (Ridvan)' successfully pushed to Firestore.
+[2026-04-14T21:57:18.452266] ADDED: Event 'Open Mic Night' successfully pushed to Firestore.
+[2026-04-14T21:57:18.574676] ADDED: Event 'Prom' successfully pushed to Firestore.
+[2026-04-14T21:57:18.685943] ADDED: Event 'App Club Meeting' successfully pushed to Firestore.
+[2026-04-14T21:57:18.795380] ADDED: Event 'PA Day' successfully pushed to Firestore.
+[2026-04-14T21:57:18.911972] ADDED: Event '2nd Semester Mid Term Distribution Day 1' successfully pushed to Firestore.
+[2026-04-14T21:57:19.024228] ADDED: Event 'Spirit week:Y2K' successfully pushed to Firestore.
+[2026-04-14T21:57:19.207320] ADDED: Event 'SHSM Event' successfully pushed to Firestore.
+[2026-04-14T21:57:19.369760] ADDED: Event 'Diamond Day (Vaisakhi)' successfully pushed to Firestore.
+[2026-04-14T21:57:19.552336] ADDED: Event 'Game Night' successfully pushed to Firestore.
+[2026-04-14T21:57:19.680376] ADDED: Event 'Badminton Practice' successfully pushed to Firestore.
+[2026-04-14T21:57:19.803308] ADDED: Event 'Diamond Day (Eid-ul-Adha)' successfully pushed to Firestore.
+[2026-04-14T21:57:20.039745] ADDED: Event 'Seneca @ York Field trip  (Reach Ahead opportunity)' successfully pushed to Firestore.
+[2026-04-14T21:57:20.167630] ADDED: Event 'Spirit Week: St. Patricks Day' successfully pushed to Firestore.
+[2026-04-14T21:57:20.169303] SYSTEM: Sync completed. Total added: 26

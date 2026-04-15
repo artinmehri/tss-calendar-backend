@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.time.LocalDate;
+import java.util.Objects;
 
 
 /**
@@ -72,18 +74,37 @@ public class FirestoreController {
                         if (eventTitle != null && !firestoreService.checkDocumentExists(eventTitle)) {
                             // Extract other fields...
                             String eventSupervisor = getAnswerText(formResponse, "03e3278b");
+                            String eventLocation = getAnswerText(formResponse, "13add265");
                             String eventDate = getAnswerText(formResponse, "2171d758");
-                            String eventTime = getAnswerText(formResponse, "0db76540");
+                            String eventStartTime = getAnswerText(formResponse, "0db76540");
+                            String eventEndTime = getAnswerText(formResponse, "114a2ced");
                             String eventDescription = getAnswerText(formResponse, "5235d67f");
                             String eventCategory = getAnswerText(formResponse, "6082cc62");
+                            String actionRequired = getAnswerText(formResponse, "3b35620f");
                             String submitTime = formResponse.getCreateTime();
                             String respondentEmail = formResponse.getRespondentEmail();
+
+                            // Parsing the date
+                            LocalDate date = LocalDate.parse(eventDate);
+                            int year = date.getYear();
+                            int month = date.getMonthValue();
+
 
                             var weeklyAns = formResponse.getAnswers().get("789c6989");
                             Boolean weekly = weeklyAns != null && "Yes".equals(getAnswerText(formResponse, "789c6989"));
 
-                            firestoreService.addEvent(eventTitle, eventSupervisor, eventDate, eventTime,
-                                    eventDescription, eventCategory, weekly, submitTime, respondentEmail);
+                            if (Objects.equals(eventCategory, "\uD83D\uDCD8 Academics (tests, due dates, study sessions)")) {
+                                eventCategory = "Academics";
+                            } else if (Objects.equals(eventCategory, "\uD83C\uDFC6 Clubs")) {
+                                eventCategory = "Clubs";
+                            } else if (Objects.equals(eventCategory, "\uD83C\uDF89 Student Life (events, spirit days)")) {
+                                eventCategory = "Student Life";
+                            } else if (Objects.equals(eventCategory, "\uD83C\uDFC0 Sports")) {
+                                eventCategory = "Sports";
+                            }
+
+                            firestoreService.addEvent(eventTitle, eventSupervisor, eventDate, eventStartTime, eventEndTime,
+                                    eventDescription, eventCategory, weekly, submitTime, respondentEmail, eventLocation, actionRequired, month, year);
 
                             eventsAdded++;
 
